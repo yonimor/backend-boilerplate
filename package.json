@@ -5,10 +5,11 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.17.1",
-    "express": "^4.15.0",
-    "mssql": "^4.1.0"
+    "express": "^4.15.0"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.15.0",
     "nodemon": "^1.11.0"
   },
   "scripts": {
