@@ -1,7 +1,7 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
-var config = require('./config.js');
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const config = require('./config.js');
 
 app.use(bodyParser.json());
 
@@ -14,9 +14,15 @@ app.use((req, res, next) => {
 });
 
 app.post('/login', (req, res) => {
-  var body = req.body;
+  const body = req.body;
   console.log('body', body);
-  res.send('hello world');
+  if (body.username === 'yoni' && body.password === 'mor') {
+    res.send({
+      name: 'Yoni',
+      email: 'il.yonimor@gmail.com',
+      position: 'developer'
+    });
+  }
 });
 
 app.listen(config.port, () => {
