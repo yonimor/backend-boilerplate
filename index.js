@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const config = require('./config.js');
+var MongoClient = require('mongodb').MongoClient
 
 app.use(bodyParser.json());
 
@@ -13,16 +14,19 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/login', (req, res) => {
-  const body = req.body;
-  console.log('body', body);
-  if (body.username === 'yoni' && body.password === 'mor') {
-    res.send({
-      name: 'Yoni',
-      email: 'il.yonimor@gmail.com',
-      position: 'developer'
+MongoClient.connect('mongodb://localhost:27017/Test', function (err, client) {
+  if (err) throw err;
+  
+  var db = client.db('Test');
+  
+  app.post('/login', (req, res) => {
+    const body = req.body;
+    const { username, password } = body;
+    
+    db.collection('Users').findOne({ username, password }, function (err, result) {
+      res.send(result);
     });
-  }
+  });
 });
 
 app.listen(config.port, () => {
